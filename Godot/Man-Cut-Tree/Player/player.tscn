@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assests/player_assets/isometric_player_character.png" type="Texture2D" id=1]
+[ext_resource path="res://Player/player.gd" type="Script" id=2]
+[ext_resource path="res://Assests/item_assests/axe.png" type="Texture2D" id=3]
+[ext_resource path="res://Player/attack_box.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+size = Vector2( 5.5, 4 )
+
+[sub_resource type="RectangleShape2D" id=2]
+size = Vector2( 6, 6 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("attack_box/damage_zone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "axe_animation"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array( 0, 0.15, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -58.2, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("attack_box/damage_zone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array( 0, 0.15, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.5, 12 )
+shape = SubResource( 1 )
+
+[node name="axe" type="Node2D" parent="."]
+position = Vector2( -18, -8 )
+
+[node name="attack_box" type="Area2D" parent="axe"]
+script = ExtResource( 4 )
+
+[node name="damage_zone" type="CollisionShape2D" parent="axe/attack_box"]
+position = Vector2( -2, -7 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="axe"]
+texture = ExtResource( 3 )
+
+[node name="axe_animation" type="AnimationPlayer" parent="axe"]
+anims/RESET = SubResource( 3 )
+anims/axe_animation = SubResource( 4 )
+
+[connection signal="body_entered" from="axe/attack_box" to="axe/attack_box" method="_on_attack_box_body_entered"]

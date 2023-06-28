@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwcsrh2uel8lc"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_y7ogq"]
+
+[sub_resource type="Environment" id="Environment_fx6i0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iegni"]
+size = Vector3(7.90772, 1, 6.7051)
+
+[sub_resource type="Gradient" id="Gradient_b0vcm"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h7256"]
+gradient = SubResource("Gradient_b0vcm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6p2g4"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0, 1, 1)
+metallic = 1.0
+metallic_specular = 0.57
+metallic_texture = SubResource("GradientTexture2D_h7256")
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_03urd"]
+material = SubResource("StandardMaterial3D_6p2g4")
+size = Vector3(7.938, 0.901, 6.932)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_40o6n"]
+radius = 1.58999
+
+[sub_resource type="ImageTexture" id="ImageTexture_jwb43"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bfrr"]
+albedo_color = Color(0, 0.258824, 0.843137, 0.247059)
+metallic = 1.0
+metallic_texture = SubResource("ImageTexture_jwb43")
+metallic_texture_channel = 3
+rim_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_q0n04"]
+material = SubResource("StandardMaterial3D_2bfrr")
+
+[node name="main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fx6i0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.92518, -0.00117302)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0114952, -1.14887, 0)
+shape = SubResource("BoxShape3D_iegni")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7871, 9.75908, 5.30164)
+mesh = SubResource("BoxMesh_03urd")
+skeleton = NodePath("../../..")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22585, 5.14735, 0.579159)
+script = ExtResource("1_y7ogq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.09621, 10.944, 6.21409)
+shape = SubResource("SphereShape3D_40o6n")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49229, 0.0990448, 0.501235)
+mesh = SubResource("BoxMesh_q0n04")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.984613, -0.174748, 0, 0.174748, 0.984613, 0.744474, 6.70654, 16.9287)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.998468, 0.0545263, 0.00936112, -0.044043, 0.681014, 0.730945, 0.0334807, -0.730238, 0.682372, 6.75823, 9.08488, 9.76818)
+layers = 9
+light_energy = 6.611

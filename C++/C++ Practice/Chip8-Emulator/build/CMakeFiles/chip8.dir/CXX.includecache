@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/tyguy/Desktop/Chip8-Emulator/chip8.hpp
+cstdint
+-
+chrono
+-
+random
+-
+
+/home/tyguy/Desktop/Chip8-Emulator/main.cpp
+chip8.hpp
+/home/tyguy/Desktop/Chip8-Emulator/chip8.hpp
+platform.hpp
+/home/tyguy/Desktop/Chip8-Emulator/platform.hpp
+chrono
+-
+iostream
+-
+
+/home/tyguy/Desktop/Chip8-Emulator/platform.hpp
+cstdint
+-
+

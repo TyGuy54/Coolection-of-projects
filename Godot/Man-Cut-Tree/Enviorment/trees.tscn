@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assests/world_assets/tree.png" type="Texture2D" id=1]
+[ext_resource path="res://Enviorment/trees.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+size = Vector2( 8.5, 17.875 )
+
+[sub_resource type="RectangleShape2D" id=2]
+size = Vector2( 8.5, 12.5 )
+
+[node name="trees" type="StaticBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2( 0, -25 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, 1 )
+
+[node name="base" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 14 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.5, -2.5 )
+shape = SubResource( 2 )
